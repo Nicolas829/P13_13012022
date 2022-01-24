@@ -3,12 +3,12 @@ import chat from '../../assets/icon-chat.png'
 import money from '../../assets/icon-money.png'
 import shield from '../../assets/icon-security.png'
 import Hero from '../../components/hero/hero'
+import Api from '../../service/api'
 
 export default function Accueil() {
   return (
     <div>
       <Hero />
-
       <section class="features">
         <h2 class="sr-only">Features</h2>
         <div class="feature-item">
