@@ -7,7 +7,7 @@ export default function UserHome() {
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {localStorage.name}
         </h1>
         <button class="edit-button">Edit Name</button>
       </div>

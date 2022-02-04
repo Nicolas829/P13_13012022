@@ -5,14 +5,18 @@ import NavBar from '../src/components/navbar/navbar'
 import Footer from '../src/components/footer/footer'
 import reportWebVitals from './reportWebVitals';
 import Routage from '../src/components/route/routes'
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import {BrowserRouter as Router, Link, Routes} from 'react-router-dom'
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>    
         
       <Routage />   
       <Footer />  
-  </React.StrictMode>,
+    </React.StrictMode>
+    </Provider>,
   document.getElementById('root')
 );
 

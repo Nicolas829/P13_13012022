@@ -1,37 +1,18 @@
 import './signin.css'
-import { Link, renderMatches } from 'react-router-dom'
+import { tokenState } from '../../store/selector'
+import { Link, Redirect } from 'react-router-dom'
 import logo from '../../assets/argentBankLogo.png'
-import { useState } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { createStore, useDispatch, useSelector } from 'react-redux'
+import { FetchOrUpdate } from '../../service/api'
+import AuthorizationMail from '../../service/api'
+import { store } from '../../store/store'
+import Resolved from '../../service/api'
 
 export default function SignIn() {
-  const [name, setName] = useState()
-  const [password, setPassword] = useState()
-  const [token, setToken] = useState()
-  const submit = (token) => {
-    console.log('prout')
-    token.preventDefault()
-    const data = {
-      email: name,
-      password: password,
-    }
-    console.log(data)
-    axios
-      .post('http://localhost:3001/api/v1/user/login', data, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ`,
-        },
-      })
-      .then((res) => {
-        return <Link to="/sign-in/user"></Link>
-      })
-      .catch((err) => {
-        console.log(err)
-        console.log(name)
-        console.log(token)
-      })
+  const submit = async (e) => {
+    e.preventDefault()
   }
-
   return (
     <body>
       <main class="main bg-dark">
@@ -44,26 +25,27 @@ export default function SignIn() {
               <input
                 type="text"
                 id="username"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  console.log(e.target.value)
+                  const email = e.target.value
+                  store.dispatch(Resolved(email, email))
+                }}
               />
             </div>
             <div class="input-wrapper">
               <label for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => {
-                  console.log(e.target.value)
-                  setPassword(e.target.value)
-                }}
-              />
+              <input type="password" id="password" />
             </div>
             <div class="input-remember">
               <input type="checkbox" id="remember-me" />
               <label for="remember-me">Remember me</label>
             </div>
 
-            <button class="sign-in-button" onClick={submit}>
+            <button
+              class="sign-in-button"
+              onClick={submit}
+              onClick={FetchOrUpdate(store)}
+            >
               Sign In
             </button>
           </form>
@@ -72,3 +54,42 @@ export default function SignIn() {
     </body>
   )
 }
+
+//////
+/*const submit = async (e) => {
+    e.preventDefault()
+
+    store.dispatch(signIn(name, password))
+
+    const apiUrl = 'http://localhost:3001/api/v1/'
+
+    const Response = await fetch('http://localhost:3001/api/v1/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+    const data = await Response.json()
+
+    if (data.status === 200) {
+      const token = data.body.token
+      store.dispatch(tryLogin(data.body.token))
+
+      const Profile = await fetch(`${apiUrl}user/profile`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      const profileData = await Profile.json()
+      if (profileData.status === 200) {
+        store.dispatch(
+          isLogin(
+            profileData.body.firstName,
+            profileData.body.lastName,
+            profileData.body.id,
+          ),
+        )
+        console.log(store.getState())
+        console.log(profileData)
+      }
+*/

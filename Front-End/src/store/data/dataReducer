@@ -1,0 +1,67 @@
+const initialState = {
+  status: 'void',
+  data: null,
+  token: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  id: '',
+  history: {},
+}
+
+export const signIn = (email, password) => ({
+  type: 'signIn',
+  payload: {
+    email: email,
+    password: password,
+  },
+})
+
+export const tryLogin = (token) => ({
+  type: 'tryLogin',
+  payload: {
+    token: token,
+  },
+})
+
+export const isLogin = (firstName, lastName, id) => ({
+  type: 'isLogin',
+  payload: {
+    firstName: firstName,
+    lastName: lastName,
+    id: id,
+  },
+})
+
+export const isLogout = () => ({ type: 'isLogout' })
+
+function dataReducer(state = initialState, action) {
+  if (action.type === 'signIn') {
+    return {
+      ...state,
+      email: action.payload.email,
+    }
+  }
+  if (action.type === 'tryLogin') {
+    return {
+      ...state,
+      token: action.payload.token,
+    }
+  }
+  if (action.type === 'isLogin') {
+    return {
+      ...state,
+
+      firstName: action.payload.firstName,
+      lastName: action.payload.lastName,
+      email: action.payload.email,
+      id: action.payload.id,
+    }
+  }
+  if (action.type === 'isLogout') {
+    return initialState
+  }
+
+  return state
+}

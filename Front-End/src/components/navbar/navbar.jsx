@@ -1,6 +1,8 @@
 import './navbar.css'
 import logo from '../../assets/argentBankLogo.png'
 import { Link } from 'react-router-dom'
+import { store } from '../../store/store'
+import { isLogout } from '../../store/store'
 
 export default function NavBar() {
   return (
@@ -9,6 +11,12 @@ export default function NavBar() {
         <img class="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
         <h1 class="sr-only">Argent Bank</h1>
       </Link>
+      <div>
+        <Link class="main-nav-item" to="/sign-out" o>
+          <i class="fa fa-user-circle"></i>
+          Sign out
+        </Link>
+      </div>
       <div>
         <Link class="main-nav-item" to="/sign-in">
           <i class="fa fa-user-circle"></i>
