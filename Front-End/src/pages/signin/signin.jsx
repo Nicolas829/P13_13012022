@@ -1,40 +1,38 @@
 import './signin.css'
-import { tokenState } from '../../store/selector'
-import { Link, Redirect } from 'react-router-dom'
-import logo from '../../assets/argentBankLogo.png'
-import { useState, useEffect } from 'react'
-import { createStore, useDispatch, useSelector } from 'react-redux'
-import { FetchOrUpdate } from '../../service/api'
-import AuthorizationMail from '../../service/api'
-import { store } from '../../store/store'
+import { AuthorizationMail, FetchOrUpdate } from '../../service/api'
+import store from '../../store/store'
 import Resolved from '../../service/api'
+import { AuthorizationPassword } from '../../service/api'
 
 export default function SignIn() {
-  const submit = async (e) => {
-    e.preventDefault()
-  }
   return (
     <body>
       <main class="main bg-dark">
         <section class="sign-in-content">
           <i class="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
+          <div>
             <div class="input-wrapper">
               <label for="username">Username</label>
               <input
                 type="text"
                 id="username"
                 onChange={(e) => {
-                  console.log(e.target.value)
                   const email = e.target.value
-                  store.dispatch(Resolved(email, email))
+                  store.dispatch(AuthorizationMail(email))
                 }}
               />
             </div>
             <div class="input-wrapper">
               <label for="password">Password</label>
-              <input type="password" id="password" />
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => {
+                  const password = e.target.value
+                  store.dispatch(AuthorizationPassword(password))
+                }}
+              />
             </div>
             <div class="input-remember">
               <input type="checkbox" id="remember-me" />
@@ -43,12 +41,13 @@ export default function SignIn() {
 
             <button
               class="sign-in-button"
-              onClick={submit}
-              onClick={FetchOrUpdate(store)}
+              onClick={() => {
+                FetchOrUpdate(store)
+              }}
             >
               Sign In
             </button>
-          </form>
+          </div>
         </section>
       </main>
     </body>

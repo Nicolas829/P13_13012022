@@ -11,19 +11,28 @@ const apiUrl = 'http://localhost:3001/api/v1/'
 const FETCHING = 'fetching'
 const RESOLVED = 'resolved'
 const REJECTED = 'rejected'
-const AUTHORIZATION = 'authorization'
+const AUTHORIZATIONMAIL = 'authorizationmail'
+const AUTHORIZATIONPASSWORD = 'autorizationpassword'
+const LOGIN = 'login'
 
 const initialState = {
   status: 'void',
-  data: null,
+  firstName: '',
+  lastName: '',
+  id: '',
   token: '',
+  userAuth: false,
   email: '',
   password: '',
   userAuth: false,
 }
+export const AuthorizationPassword = (password) => ({
+  type: AUTHORIZATIONPASSWORD,
+  payload: password,
+})
 
 export const AuthorizationMail = (email) => ({
-  type: AUTHORIZATION,
+  type: AUTHORIZATIONMAIL,
   payload: email,
 })
 const Fetching = (status, userAuth) => ({
@@ -33,45 +42,56 @@ const Fetching = (status, userAuth) => ({
 })
 const Resolved = (token, status) => ({ type: RESOLVED, payload: token, status })
 const Rejected = (error) => ({ type: RESOLVED, payload: error })
-console.log(store.getState())
+const Login = (data) => ({ type: LOGIN, payload: data })
 export default function Data(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
+      case AUTHORIZATIONMAIL: {
+        draft.email = action.payload
+        return
+      }
+      case AUTHORIZATIONPASSWORD: {
+        draft.password = action.payload
+        return
+      }
       case FETCHING: {
-        console.log(draft.status, draft.userAuth)
-        if (draft.status === 'void' && draft.userAuth === true) {
-          draft.status = 'pending'
+        console.log(action.payload)
+        if (action.payload === 200) {
+          draft.status = 'resolved'
+
+          return
+        }
+        if (action.payload === 400) {
+          draft.status = 'rejected'
+          return
+        }
+        if (action.payload === 'pending') {
           console.log(draft.status)
-          return
-        }
-        if (draft.status === '400') {
-          console.log('ok 400')
-          draft.error = null
           draft.status = 'pending'
-          return
-        }
-        if (draft.status === 'resolved') {
-          draft.status = 'updating'
           return
         }
         return
       }
       case RESOLVED: {
         console.log(draft.status)
-        if (
-          draft.status === 'pending' ||
-          draft.status === 'updating' ||
-          draft.status === 'resolved'
-        ) {
+        if (draft.status === 'resolved') {
           draft.token = action.payload
-          draft.status = 'resolved'
-          console.log(draft.token)
+
           return
         }
         return
       }
+      case LOGIN: {
+        if (draft.status === 'resolved') {
+          draft.firstName = action.payload.firstName
+          draft.lastName = action.payload.lastName
+          draft.id = action.payload.id
+          draft.userAuth = true
+          return
+        }
+      }
       case REJECTED: {
-        if (draft.status === 'pending' || draft.status === 'updating') {
+        if (draft.status === 'rejected') {
           draft.error = action.payload
           draft.data = null
           draft.status = 'rejected'
@@ -88,11 +108,13 @@ export default function Data(state = initialState, action) {
 //fetch api
 export async function FetchOrUpdate(store) {
   const status = selectUser(store.getState()).status
+
   const token = selectUser(store.getState()).token
-  console.log(store.getState())
+  const email = selectUser(store.getState()).email
+
   const Auth = {
-    email: selectUser(store.getState()).email,
-    password: selectUser(store.getState()).password,
+    email: store.getState().email,
+    password: store.getState().password,
   }
 
   try {
@@ -103,21 +125,24 @@ export async function FetchOrUpdate(store) {
       },
       body: JSON.stringify(Auth),
     })
-    console.log(Response.status)
-    if (Response.status === '200') {
-      store.dispatch(Fetching(Response.status))
 
-      return
-    }
+    store.dispatch(Fetching(Response.status))
     const data = await Response.json()
-    console.log(data.body.token, status)
-
     store.dispatch(Resolved(data.body.token))
-    console.log(store.getState())
-    console.log(selectUser(store.getState()).token)
+    const token = selectUser(store.getState()).token
+    console.log(token)
+    const Profile = await fetch('http://localhost:3001/api/v1/user/profile', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    const userProfile = await Profile.json()
+    console.log(userProfile.body)
+    store.dispatch(Login(userProfile.body))
   } catch (error) {
-    console.log(error)
-    store.dispatch(Rejected(error))
+    store.dispatch(Rejected(Response.message))
   }
 }
 

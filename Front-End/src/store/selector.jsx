@@ -5,4 +5,4 @@ export const tokenState = (token) => {
 }
 console.log(tokenState)
 
-export const selectUser = (state) => state
+export const selectUser = (draft) => draft
