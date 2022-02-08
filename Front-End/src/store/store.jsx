@@ -1,14 +1,16 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import produce from 'immer'
 import { selectUser } from './selector'
-import { Link } from 'react-router-dom'
-import Data from '../service/api'
+import { Link, renderMatches } from 'react-router-dom'
+
 import { configureStore } from '@reduxjs/toolkit'
+import FetchReducer from '../store/data/dataReducer'
+import Data from '../store/data/dataReducer'
 
 // state
 
 const reducer = combineReducers({
-  fetch: Data,
+  Data: Data,
 })
 
 const reduxDevtools =
@@ -19,17 +21,5 @@ console.log(store.getState())
 export default store
 
 store.subscribe(() => {
-  console.log('Nouveau state:')
   console.log(store.getState())
 })
-const userAuth = selectUser(store.getState()).userAuth
-
-window.onchange = (userAuth) => {
-  if (userAuth === false) {
-    console.log('prout')
-  }
-  if (userAuth === true) {
-    console.log('ok pour changer')
-    return <Link to="user" />
-  }
-}

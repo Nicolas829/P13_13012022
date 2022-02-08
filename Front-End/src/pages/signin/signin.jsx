@@ -1,10 +1,17 @@
 import './signin.css'
-import { AuthorizationMail, FetchOrUpdate } from '../../service/api'
 import store from '../../store/store'
-import Resolved from '../../service/api'
-import { AuthorizationPassword } from '../../service/api'
+import { FetchOrUpdate } from '../../service/api'
+import {
+  AuthorizationPassword,
+  AuthorizationMail,
+} from '../../store/data/dataReducer'
+import { Navigate, useNavigate } from 'react-router-dom'
+
+import { selectUser, tokenState } from '../../store/selector'
 
 export default function SignIn() {
+  const navigate = useNavigate()
+
   return (
     <body>
       <main class="main bg-dark">
@@ -19,6 +26,7 @@ export default function SignIn() {
                 id="username"
                 onChange={(e) => {
                   const email = e.target.value
+                  console.log(email)
                   store.dispatch(AuthorizationMail(email))
                 }}
               />
@@ -40,9 +48,14 @@ export default function SignIn() {
             </div>
 
             <button
-              class="sign-in-button"
-              onClick={() => {
-                FetchOrUpdate(store)
+              onClick={async (e) => {
+                e.preventDefault()
+                await FetchOrUpdate(store)
+                const id = selectUser(store.getState()).id
+                const Auth = selectUser(store.getState()).userAuth
+                if (Auth) {
+                  navigate(`/sign-in/user/${id}`)
+                }
               }}
             >
               Sign In
@@ -53,42 +66,3 @@ export default function SignIn() {
     </body>
   )
 }
-
-//////
-/*const submit = async (e) => {
-    e.preventDefault()
-
-    store.dispatch(signIn(name, password))
-
-    const apiUrl = 'http://localhost:3001/api/v1/'
-
-    const Response = await fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    })
-    const data = await Response.json()
-
-    if (data.status === 200) {
-      const token = data.body.token
-      store.dispatch(tryLogin(data.body.token))
-
-      const Profile = await fetch(`${apiUrl}user/profile`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      const profileData = await Profile.json()
-      if (profileData.status === 200) {
-        store.dispatch(
-          isLogin(
-            profileData.body.firstName,
-            profileData.body.lastName,
-            profileData.body.id,
-          ),
-        )
-        console.log(store.getState())
-        console.log(profileData)
-      }
-*/
