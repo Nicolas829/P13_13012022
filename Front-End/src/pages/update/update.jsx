@@ -4,7 +4,7 @@ import { ChangeLastName } from '../../store/reducer/updateProfileReducer'
 import { ChangeFirstName } from '../../store/reducer/updateProfileReducer'
 import { UpdateProfile } from '../../service/updateProfile'
 import { useNavigate } from 'react-router-dom'
-import { FetchOrUpdate } from '../../service/api'
+import { FetchOrUpdate } from '../../service/authorization'
 
 export default function Update() {
   const navigate = useNavigate()

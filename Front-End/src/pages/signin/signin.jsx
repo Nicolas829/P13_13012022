@@ -1,6 +1,6 @@
 import './signin.css'
 import store from '../../store/store'
-import { FetchOrUpdate } from '../../service/api'
+import { FetchOrUpdate } from '../../service/authorization'
 import {
   AuthorizationPassword,
   AuthorizationMail,
@@ -8,12 +8,14 @@ import {
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { selectUser, tokenState } from '../../store/selector'
+import NavBar from '../../components/navbar/navbar'
 
 export default function SignIn() {
   const navigate = useNavigate()
 
   return (
     <body>
+      <NavBar />
       <main class="main bg-dark">
         <section class="sign-in-content">
           <i class="fa fa-user-circle sign-in-icon"></i>
@@ -51,7 +53,7 @@ export default function SignIn() {
               onClick={async (e) => {
                 e.preventDefault()
                 await FetchOrUpdate(store)
-                const id = selectUser(store.getState()).Fetch.id
+                const id = selectUser(store.getState()).Profile.id
                 const Auth = selectUser(store.getState()).Profile.userAuth
                 if (Auth) {
                   navigate(`/sign-in/user/${id}`)

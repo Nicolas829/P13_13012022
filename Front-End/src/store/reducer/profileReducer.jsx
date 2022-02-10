@@ -36,7 +36,7 @@ export default function ProfileReducer(state = initialState, action) {
         }
       }
       case LOGOUT: {
-        draft.token = ''
+        return initialState
       }
     }
   })

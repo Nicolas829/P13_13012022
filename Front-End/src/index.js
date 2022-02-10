@@ -4,7 +4,7 @@ import './index.css';
 import NavBar from '../src/components/navbar/navbar'
 import Footer from '../src/components/footer/footer'
 import reportWebVitals from './reportWebVitals';
-import Routage from '../src/components/route/routes'
+import Routage from './route/routes';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import {BrowserRouter as Router, Link, Routes} from 'react-router-dom'
