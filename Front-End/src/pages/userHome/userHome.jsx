@@ -1,19 +1,21 @@
 import { selectUser } from '../../store/selector'
 import store from '../../store/store'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactDOM from 'react-dom'
-import Modal from '../../components/modal/modal'
 
 import './userHome.css'
-import { Logout, ShowModal } from '../../store/data/dataReducer'
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
+import Update from '../update/update'
+
 export default function UserHome() {
-  const Name = selectUser(store.getState()).firstName
-  const userAuth = selectUser(store.getState()).userAuth
-  const ToggleShow = selectUser(store.getState()).showModal
+  const Name = selectUser(store.getState()).Profile.firstName
+  const userAuth = selectUser(store.getState()).Profile.userAuth
+
+  const navigate = useNavigate()
+  store.subscribe(() => {
+    console.log(store.getState())
+  })
+
   console.log(userAuth)
   if (userAuth) {
     return (
@@ -32,12 +34,11 @@ export default function UserHome() {
           <button
             class="edit-button"
             onClick={(e) => {
-              store.dispatch(ShowModal(selectUser(store.getState()).showModal))
+              navigate('/update')
             }}
           >
             Edit Name
           </button>
-          <Modal Show={ToggleShow} />
         </div>
         <h2 class="sr-only">Accounts</h2>
         <section class="account">

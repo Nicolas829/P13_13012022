@@ -4,7 +4,7 @@ import { FetchOrUpdate } from '../../service/api'
 import {
   AuthorizationPassword,
   AuthorizationMail,
-} from '../../store/data/dataReducer'
+} from '../../store/reducer/fetchReducer'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { selectUser, tokenState } from '../../store/selector'
@@ -51,8 +51,8 @@ export default function SignIn() {
               onClick={async (e) => {
                 e.preventDefault()
                 await FetchOrUpdate(store)
-                const id = selectUser(store.getState()).id
-                const Auth = selectUser(store.getState()).userAuth
+                const id = selectUser(store.getState()).Fetch.id
+                const Auth = selectUser(store.getState()).Profile.userAuth
                 if (Auth) {
                   navigate(`/sign-in/user/${id}`)
                 }

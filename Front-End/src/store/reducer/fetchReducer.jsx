@@ -1,5 +1,5 @@
 import produce from 'immer'
-import Auth from '../../components/Auth'
+
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,15 +7,12 @@ const FETCHING = 'fetching'
 const REJECTED = 'rejected'
 const AUTHORIZATIONMAIL = 'authorizationmail'
 const AUTHORIZATIONPASSWORD = 'autorizationpassword'
-const LOGIN = 'login'
-const LOGOUT = 'logout'
+
 const TOGGLESHOWMODAL = 'toggleshowmodal'
 
 const initialState = {
   status: '',
-  firstName: '',
-  lastName: '',
-  id: '',
+
   token: '',
   message: '',
   userAuth: false,
@@ -44,10 +41,8 @@ export const Fetching = (data) => ({
 })
 
 export const Rejected = (data) => ({ type: REJECTED, payload: data })
-export const Login = (data) => ({ type: LOGIN, payload: data })
-export const Logout = (data) => ({ type: LOGOUT, payload: data })
 
-export default function Data(state = initialState, action) {
+export default function FetchReducer(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
       case TOGGLESHOWMODAL: {
@@ -77,19 +72,6 @@ export default function Data(state = initialState, action) {
         }
       }
 
-      case LOGIN: {
-        if (draft.status === 200) {
-          draft.id = action.payload.id
-          draft.firstName = action.payload.firstName
-          draft.lastName = action.payload.lastName
-          draft.userAuth = true
-
-          return
-        }
-      }
-      case LOGOUT: {
-        draft.token = ''
-      }
       case REJECTED: {
         if (draft.status != 200) {
           draft.token = ''

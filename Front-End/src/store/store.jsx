@@ -1,21 +1,19 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import produce from 'immer'
-import { selectUser } from './selector'
-import { Link, renderMatches } from 'react-router-dom'
-
-import { configureStore } from '@reduxjs/toolkit'
-import FetchReducer from '../store/data/dataReducer'
-import Data from '../store/data/dataReducer'
+import { combineReducers, createStore } from 'redux'
+import FetchReducer from './reducer/fetchReducer'
+import UpdateProfileReducer from './reducer/updateProfileReducer'
+import ProfileReducer from './reducer/profileReducer'
 
 // state
 
 const reducer = combineReducers({
-  Data: Data,
+  Fetch: FetchReducer,
+  Profile: ProfileReducer,
+  Update: UpdateProfileReducer,
 })
 
 const reduxDevtools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-const store = createStore(Data, reduxDevtools)
+const store = createStore(reducer, reduxDevtools)
 console.log(store.getState())
 
 export default store

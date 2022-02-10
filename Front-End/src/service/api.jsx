@@ -1,19 +1,17 @@
-import { selectUser } from '../store/selector'
-import { Rejected, Fetching, Login } from '../store/data/dataReducer'
-
-import { useNavigate, useNavigationType } from 'react-router-dom'
+import { Rejected, Fetching } from '../store/reducer/fetchReducer'
+import { Login } from '../store/reducer/profileReducer'
 
 const apiUrl = 'http://localhost:3001/api/v1/'
 
 //fetch api
 export async function FetchOrUpdate(store) {
-  const status = selectUser(store.getState()).status
-  const token = selectUser(store.getState()).token
-  const email = selectUser(store.getState()).email
-
+  const status = store.getState().Fetch.status
+  const token = store.getState().Fetch.token
+  const email = store.getState().Fetch.email
+  console.log(store.getState().Fetch.password)
   const Auth = {
-    email: store.getState().email,
-    password: store.getState().password,
+    email: store.getState().Fetch.email,
+    password: store.getState().Fetch.password,
   }
 
   try {
@@ -30,7 +28,7 @@ export async function FetchOrUpdate(store) {
     store.dispatch(Fetching(data))
     store.dispatch(Rejected(data))
 
-    const token = selectUser(store.getState()).token
+    const token = store.getState().Fetch.token
     const Profile = await fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'POST',
       headers: {
@@ -38,10 +36,16 @@ export async function FetchOrUpdate(store) {
       },
     })
     const userProfile = await Profile.json()
-
-    store.dispatch(Login(userProfile.body))
-
-    const id = selectUser(store.getState()).id
-    const auth = selectUser(store.getState()).userAuth
+    const status = store.getState().Fetch.status
+    console.log(status)
+    store.dispatch(
+      Login(
+        userProfile.body.firstName,
+        userProfile.body.lastName,
+        userProfile.body.id,
+        token,
+        status,
+      ),
+    )
   } catch (error) {}
 }
