@@ -1,15 +1,10 @@
 import produce from 'immer'
 
 const LOGIN = 'login'
-const LOGOUT = 'logout'
 
 export const Login = (firstName, lastName, id, token, status) => ({
   type: LOGIN,
   payload: { firstName, lastName, id, token, status },
-})
-export const Logout = (data, status, token) => ({
-  type: LOGOUT,
-  payload: { data, status, token },
 })
 
 const initialState = {
@@ -34,9 +29,6 @@ export default function ProfileReducer(state = initialState, action) {
 
           return
         }
-      }
-      case LOGOUT: {
-        return initialState
       }
     }
   })

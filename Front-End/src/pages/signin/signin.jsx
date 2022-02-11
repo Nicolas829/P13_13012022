@@ -5,7 +5,8 @@ import {
   AuthorizationPassword,
   AuthorizationMail,
 } from '../../store/reducer/fetchReducer'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, renderMatches, useNavigate } from 'react-router-dom'
+import { componentDidUpdate } from 'react'
 
 import { selectUser, tokenState } from '../../store/selector'
 import NavBar from '../../components/navbar/navbar'
@@ -15,7 +16,6 @@ export default function SignIn() {
 
   return (
     <body>
-      <NavBar />
       <main class="main bg-dark">
         <section class="sign-in-content">
           <i class="fa fa-user-circle sign-in-icon"></i>
@@ -50,6 +50,7 @@ export default function SignIn() {
             </div>
 
             <button
+              className="sign-in-button"
               onClick={async (e) => {
                 e.preventDefault()
                 await FetchOrUpdate(store)

@@ -7,6 +7,7 @@ const FETCHING = 'fetching'
 const REJECTED = 'rejected'
 const AUTHORIZATIONMAIL = 'authorizationmail'
 const AUTHORIZATIONPASSWORD = 'autorizationpassword'
+const RESETSTATE = 'resetstate'
 
 const TOGGLESHOWMODAL = 'toggleshowmodal'
 
@@ -20,6 +21,11 @@ const initialState = {
   password: '',
   showModal: 'false',
 }
+
+export const ResetState = (data, status, token) => ({
+  type: RESETSTATE,
+  payload: { data, status, token },
+})
 
 export const ShowModal = (showModal) => ({
   type: TOGGLESHOWMODAL,
@@ -87,6 +93,9 @@ export default function FetchReducer(state = initialState, action) {
           return
         }
         return
+      }
+      case RESETSTATE: {
+        return { ...initialState }
       }
       default:
         return

@@ -37,7 +37,7 @@ export async function FetchOrUpdate(store) {
     })
     const userProfile = await Profile.json()
     const status = store.getState().Fetch.status
-    console.log(status)
+
     store.dispatch(
       Login(
         userProfile.body.firstName,

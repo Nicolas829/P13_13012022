@@ -1,38 +1,27 @@
 import { selectUser } from '../../store/selector'
 import store from '../../store/store'
-import { Link, useNavigate } from 'react-router-dom'
-import NavBar from '../../components/navbar/navbar'
+import { useNavigate } from 'react-router-dom'
 
 import './userHome.css'
 
-import Update from '../update/update'
-
 export default function UserHome() {
-  const Name = selectUser(store.getState()).Profile.firstName
+  const firstName = selectUser(store.getState()).Profile.firstName
+  const lastName = selectUser(store.getState()).Profile.lastName
   const userAuth = selectUser(store.getState()).Profile.userAuth
 
   const navigate = useNavigate()
-  store.subscribe(() => {
-    console.log(store.getState())
-  })
 
-  console.log(userAuth)
   if (userAuth) {
     return (
       <body>
-        <NavBar userAuth={userAuth} />
         <main class="main bg-dark">
           <div class="header">
             <h1>
               Welcome back
               <br />
-              {Name}
+              {lastName} {firstName}
             </h1>
-            <div>
-              <Link class="signout-button" to="/logout">
-                Sign out
-              </Link>
-            </div>
+
             <button
               class="edit-button"
               onClick={(e) => {
