@@ -1,10 +1,15 @@
 import produce from 'immer'
 
 const LOGIN = 'login'
+const RESETSTATEPROFILE = 'reseststateprofile'
 
 export const Login = (firstName, lastName, id, token, status) => ({
   type: LOGIN,
   payload: { firstName, lastName, id, token, status },
+})
+
+export const ResetStateProfile = () => ({
+  type: RESETSTATEPROFILE,
 })
 
 const initialState = {
@@ -29,6 +34,9 @@ export default function ProfileReducer(state = initialState, action) {
 
           return
         }
+      }
+      case RESETSTATEPROFILE: {
+        return { ...initialState }
       }
     }
   })

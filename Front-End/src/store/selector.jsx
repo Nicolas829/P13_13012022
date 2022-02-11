@@ -7,3 +7,5 @@ export const Authorization = (userAuth) => {
 }
 
 export const selectUser = (state) => state
+export const selectStatus = (state) => state.status
+console.log(selectStatus)

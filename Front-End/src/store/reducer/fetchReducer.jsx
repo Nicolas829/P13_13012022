@@ -22,9 +22,8 @@ const initialState = {
   showModal: 'false',
 }
 
-export const ResetState = (data, status, token) => ({
+export const ResetState = () => ({
   type: RESETSTATE,
-  payload: { data, status, token },
 })
 
 export const ShowModal = (showModal) => ({

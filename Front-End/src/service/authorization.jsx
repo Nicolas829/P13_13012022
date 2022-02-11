@@ -8,7 +8,7 @@ export async function FetchOrUpdate(store) {
   const status = store.getState().Fetch.status
   const token = store.getState().Fetch.token
   const email = store.getState().Fetch.email
-  console.log(store.getState().Fetch.password)
+
   const Auth = {
     email: store.getState().Fetch.email,
     password: store.getState().Fetch.password,
