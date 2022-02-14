@@ -8,6 +8,7 @@ import NavBar from '../../components/navbar/navbar'
 export default function Accueil() {
   return (
     <div>
+      <NavBar />
       <Hero />
       <section class="features">
         <h2 class="sr-only">Features</h2>

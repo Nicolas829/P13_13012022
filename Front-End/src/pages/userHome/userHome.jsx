@@ -3,6 +3,7 @@ import store from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 
 import './userHome.css'
+import NavBar from '../../components/navbar/navbar'
 
 export default function UserHome() {
   const firstName = selectUser(store.getState()).Profile.firstName
@@ -14,6 +15,7 @@ export default function UserHome() {
   if (userAuth) {
     return (
       <body>
+        <NavBar />
         <main class="main bg-dark">
           <div class="header">
             <h1>

@@ -9,7 +9,6 @@ import Logout from '../pages/logout/logout'
 export default function Routage() {
   return (
     <Router>
-      <NavBar />
       <Routes>
         <Route path="/" element={<Accueil />} />
         <Route path="/sign-in" element={<SignIn />} />

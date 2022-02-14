@@ -5,9 +5,7 @@ import {
   AuthorizationPassword,
   AuthorizationMail,
 } from '../../store/reducer/fetchReducer'
-import { Navigate, renderMatches, useNavigate } from 'react-router-dom'
-import { componentDidUpdate } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import { selectUser, tokenState } from '../../store/selector'
 import NavBar from '../../components/navbar/navbar'
 
@@ -16,6 +14,7 @@ export default function SignIn() {
 
   return (
     <body>
+      <NavBar />
       <main class="main bg-dark">
         <section class="sign-in-content">
           <i class="fa fa-user-circle sign-in-icon"></i>
@@ -28,7 +27,6 @@ export default function SignIn() {
                 id="username"
                 onChange={(e) => {
                   const email = e.target.value
-                  console.log(email)
                   store.dispatch(AuthorizationMail(email))
                 }}
               />
@@ -56,8 +54,10 @@ export default function SignIn() {
                 await FetchOrUpdate(store)
                 const id = selectUser(store.getState()).Profile.id
                 const Auth = selectUser(store.getState()).Profile.userAuth
+
                 if (Auth) {
-                  navigate(`/sign-in/user/${id}`)
+                  navigate(`/sign-in/user/${id}#${Auth}`)
+                  console.log(window.location.hash)
                 }
               }}
             >
