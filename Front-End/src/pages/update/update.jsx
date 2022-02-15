@@ -8,72 +8,70 @@ import { useNavigate } from 'react-router-dom'
 import { FetchOrUpdate } from '../../service/authorization'
 import NavBar from '../../components/navbar/navbar'
 
-export default function Update() {
+export default function Update(props) {
   const navigate = useNavigate()
+  const firstName = props.firstName
+  const lastName = props.lastName
 
   return (
-    <body>
-      <NavBar />
-      <main class="main bg-dark">
-        <div className="form-update">
-          <form>
-            <div className="form-group">
-              <h2>Nouveau nom</h2>
-              <input
-                type="text"
-                className="input-update"
-                onChange={(e) => {
-                  console.log(e.target.value)
-                  store.dispatch(ChangeLastName(e.target.value))
-                }}
-              />
-            </div>
-            <div className="form-group">
-              <h2>Nouveau prénom</h2>
-              <input
-                className="input-update"
-                type="text"
-                onChange={(e) => {
-                  store.dispatch(ChangeFirstName(e.target.value))
-                }}
-              />
-            </div>
+    <div className="form-update">
+      <form className="container-update">
+        <div className="form-group-input">
+          <input
+            type="text"
+            className="input-update"
+            placeholder={lastName}
+            id={lastName}
+            onChange={(e) => {
+              console.log(e.target.value)
+              store.dispatch(ChangeLastName(e.target.value))
+            }}
+          />
+          <button
+            className="update-button"
+            value="Confirmer changement"
+            onClick={async (e) => {
+              e.preventDefault()
+              const token = store.getState().Profile.token
+              const id = store.getState().Profile.id
 
-            <div className="form-group">
-              <button
-                className="update-button"
-                value="Confirmer changement"
-                onClick={async (e) => {
-                  e.preventDefault()
-                  const token = store.getState().Profile.token
-                  const id = store.getState().Profile.id
+              await UpdateProfile(store, token)
+              await FetchOrUpdate(store)
 
-                  await UpdateProfile(store, token)
-                  await FetchOrUpdate(store)
-                  navigate(`/sign-in/user/${id}`)
-                }}
-              >
-                Confirmer changement
-              </button>
-            </div>
-            <div className="form-group">
-              <button
-                className="update-button"
-                value="Confirmer changement"
-                onClick={async (e) => {
-                  e.preventDefault()
-                  const token = store.getState().Profile.token
-                  const id = store.getState().Profile.id
-
-                  navigate(`/sign-in/user/${id}`)
-                }}
-              >
-                Annuler{' '}
-              </button>
-            </div>
-          </form>
+              navigate(`/sign-in/user/${id}`)
+            }}
+          >
+            Save
+          </button>
         </div>
-      </main>
-    </body>
+
+        <div className="form-group-input2">
+          <input
+            className="input-update"
+            type="text"
+            id={firstName}
+            placeholder={firstName}
+            onChange={(e) => {
+              store.dispatch(ChangeFirstName(e.target.value))
+            }}
+          />
+          <button
+            className="update-button"
+            value="Confirmer changement"
+            onClick={async (e) => {
+              e.preventDefault()
+              const token = store.getState().Profile.token
+              const id = store.getState().Profile.id
+
+              document.getElementById(lastName).value = lastName
+              document.getElementById(firstName).value = firstName
+              navigate(`/sign-in/user/${id}`)
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }

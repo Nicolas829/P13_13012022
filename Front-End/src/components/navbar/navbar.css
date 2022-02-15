@@ -28,3 +28,33 @@
   max-width: 100%;
   width: 200px;
 }
+.name-profil-logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 15em;
+}
+
+.icone-name-profil {
+  display: flex;
+}
+.icone-profil {
+  width: 40px;
+}
+.name-profil {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav-item {
+  display: flex;
+  gap: 0.4em;
+}
+.icone-logout {
+  width: 25px;
+}
+
+.texte-logout {
+  display: flex;
+  align-items: center;
+}

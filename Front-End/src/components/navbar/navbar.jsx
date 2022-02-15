@@ -6,9 +6,12 @@ import Logout from '../../pages/logout/logout'
 import store from '../../store/store'
 import { ResetStateProfile } from '../../store/reducer/profileReducer'
 import { ResetState } from '../../store/reducer/fetchReducer'
+import profil from '../../assets/profil.png'
+import iconeLogout from '../../assets/logout.svg'
 
 export default function NavBar() {
   const userAuth = store.getState().Profile.userAuth
+  const lastName = store.getState().Profile.lastName
   console.log(userAuth)
   if (userAuth) {
     return (
@@ -17,9 +20,13 @@ export default function NavBar() {
           <img class="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
           <h1 class="sr-only">Argent Bank</h1>
         </Link>
-        <div>
+        <div className="name-profil-logout">
+          <div className="icone-name-profil">
+            <img className="icone-profil" src={profil} />
+            <span className="name-profil">{lastName}</span>
+          </div>
           <Link
-            class="main-nav-item"
+            className="main-nav-item"
             to="/logout"
             element={<Logout />}
             onClick={(e) => {
@@ -27,8 +34,8 @@ export default function NavBar() {
               store.dispatch(ResetState())
             }}
           >
-            <i class="fa fa-user-circle"></i>
-            Logout
+            <img src={iconeLogout} className="icone-logout"></img>
+            <span className="texte-logout">Logout</span>
           </Link>
         </div>
       </nav>

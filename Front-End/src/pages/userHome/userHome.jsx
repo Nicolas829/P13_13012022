@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import './userHome.css'
 import NavBar from '../../components/navbar/navbar'
+import Update from '../update/update'
 
 export default function UserHome() {
   const firstName = selectUser(store.getState()).Profile.firstName
@@ -21,17 +22,8 @@ export default function UserHome() {
             <h1>
               Welcome back
               <br />
-              {lastName} {firstName}
+              <Update firstName={firstName} lastName={lastName} />
             </h1>
-
-            <button
-              class="edit-button"
-              onClick={(e) => {
-                navigate('/update')
-              }}
-            >
-              Edit Name
-            </button>
           </div>
           <h2 class="sr-only">Accounts</h2>
           <section class="account">
@@ -69,9 +61,13 @@ export default function UserHome() {
     )
   } else {
     return (
-      <h1 className="autorisation-denied">
-        Vous devez vous reconnecter pour voir cette page
-      </h1>
+      <body>
+        <NavBar />
+
+        <h1 className="autorisation-denied">
+          Vous devez vous reconnecter pour voir cette page
+        </h1>
+      </body>
     )
   }
 }
