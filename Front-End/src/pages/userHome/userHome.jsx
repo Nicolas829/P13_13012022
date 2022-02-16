@@ -1,7 +1,6 @@
 import { selectUser } from '../../store/selector'
 import store from '../../store/store'
 import { useNavigate } from 'react-router-dom'
-
 import './userHome.css'
 import NavBar from '../../components/navbar/navbar'
 import Update from '../update/update'
@@ -20,6 +19,8 @@ export default function UserHome() {
   const firstName = selectUser(store.getState()).Profile.firstName
   const lastName = selectUser(store.getState()).Profile.lastName
   const userAuth = selectUser(store.getState()).Profile.userAuth
+
+  const navigate = useNavigate()
 
   if (userAuth) {
     return (

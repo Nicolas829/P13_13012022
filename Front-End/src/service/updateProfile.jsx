@@ -1,8 +1,8 @@
-/**
+/**allow change firstname or lastname
  *
  * @param {string} token
  * @param {object} store
- * @return UpdateProfile //allow change firstname or lastname
+ * @return UpdateProfile
  */
 
 export async function UpdateProfile(store, tokenAuth) {

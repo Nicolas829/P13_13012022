@@ -34,7 +34,6 @@ export default function Update(props) {
             placeholder={lastName}
             id={lastName}
             onChange={(e) => {
-              console.log(e.target.value)
               store.dispatch(ChangeLastName(e.target.value))
             }}
           />
@@ -45,10 +44,8 @@ export default function Update(props) {
               e.preventDefault()
               const token = store.getState().Profile.token
               const id = store.getState().Profile.id
-
               await UpdateProfile(store, token)
               await FetchOrUpdate(store)
-
               navigate(`/sign-in/user/${id}`)
             }}
           >
@@ -73,7 +70,6 @@ export default function Update(props) {
               e.preventDefault()
               const token = store.getState().Profile.token
               const id = store.getState().Profile.id
-
               document.getElementById(lastName).value = lastName
               document.getElementById(firstName).value = firstName
               navigate(`/sign-in/user/${id}`)

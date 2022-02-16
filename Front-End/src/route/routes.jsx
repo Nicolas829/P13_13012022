@@ -3,6 +3,7 @@ import SignIn from '../pages/signin/signin'
 import UserHome from '../pages/userHome/userHome'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Logout from '../pages/logout/logout'
+
 /**
  * @page Accueil
  * @page Signin
