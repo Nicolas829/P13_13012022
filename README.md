@@ -1,4 +1,4 @@
-# Project 13 from the cursus Developer Front-End from OpenClassRooms
+# Project 13 of openclassrooms training courses 'developer Front-End'
 
 Web app for login/logout bank client
 
