@@ -4,6 +4,11 @@ import money from '../../assets/icon-money.png'
 import shield from '../../assets/icon-security.png'
 import Hero from '../../components/hero/hero'
 import NavBar from '../../components/navbar/navbar'
+/**
+ * @component NavBar
+ * @component Hero
+ * @returns Home page
+ */
 
 export default function Accueil() {
   return (

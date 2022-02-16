@@ -1,4 +1,9 @@
-import { Login } from '../store/reducer/profileReducer'
+/**
+ *
+ * @param {string} token
+ * @param {object} store
+ * @return UpdateProfile //allow change firstname or lastname
+ */
 
 export async function UpdateProfile(store, tokenAuth) {
   const token = tokenAuth

@@ -18,126 +18,49 @@ paths:
       parameters:
         - in: body
           name: body
-          description: transaction Payload
+          description: transactionPayload
           required: true
           schema:
-            $ref: '#/definitions/Login'
+            $ref: '#/definitions/Transaction'
       produces:
         - application/json
       responses:
         '200':
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
-          description: Invalid Fields
+            $ref: '#/definitions/Transaction'
+        '404':
+          description: error page not Found
         '500':
           description: Internal Server Error
-  /user/signup:
-    post:
-      tags:
-        - User Module
-      summary: Signup
-      description: API for Signup
-      parameters:
-        - in: body
-          name: body
-          description: Signup Payload
-          required: true
-          schema:
-            $ref: '#/definitions/User'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Signup Successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/profile:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for fetching a user profile
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for updating a user profile
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: body
-          name: body
-          description: Update user profile attributes
-          required: true
-          schema:
-            $ref: '#/definitions/UserProfile'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+  
+  
 securityDefinitions:
   Bearer:
     type: apiKey
-    name: Authorization
+    name: id
     in: header
 definitions:
-  User:
-    properties:
-      email:
+  Transaction:
+    properties:     
+      date:
         type: string
-        description: user email
-      password:
+      description: date transaction
+        description:
+      type: string
+        description: description transaction
+      amount:
+        type: number
+        description: amount of the transaction
+      balance:
+        type: number
+        description: balance of count
+      category:
         type: string
-        description: user password
-      firstName:
+        description: category  of transaction
+      notes:
         type: string
-        description: user first name
-      lastName:
-        type: string
-        description: user last name
-  Login:
-    properties:
-      email:
-        type: string
-        description: user email
-      password:
-        type: string
-        description: user password
+        description: notes about transaction
   ApiResponse:
     type: object
     properties:
@@ -146,21 +69,15 @@ definitions:
       message:
         type: string
       body:
-        type: object
-        properties:
-          id:
-            type: string
-          email:
-            type: string
-  LoginResponse:
-    type: object
-    properties:
-      token:
+        type: object        
+      date:
         type: string
-  UserProfile:
-    type: object
-    properties:
-      firstName:
+      amount:
+        type: number
+      balance:
+        type: number
+      category:
         type: string
-      lastName:
+      notes:
         type: string
+       

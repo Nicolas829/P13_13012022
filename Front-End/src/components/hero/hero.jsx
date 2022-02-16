@@ -1,6 +1,9 @@
 import './hero.css'
 import { Link } from 'react-router-dom'
-
+/**
+ *
+ * @returns hero text component
+ */
 export default function Hero() {
   return (
     <div class="hero">

@@ -1,5 +1,20 @@
 import produce from 'immer'
 
+/**Profilereducer to state management
+ * 
+ * @const {type} CHANGEFIRSTNAME
+ * @const {type} CHANGELASTNAME
+ * 
+ * 
+ *    * @redux
+      * @reduxActionType @const {type}
+      * @const {array} initialState
+      * @action
+      * @return {Redux.Action} The generated action
+     
+ * @return Redux.reducer 
+ */
+
 const CHANGEFIRSTNAME = 'changefirstname'
 const CHANGELASTNAME = 'changelastname'
 

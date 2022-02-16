@@ -6,7 +6,18 @@ import { ChangeFirstName } from '../../store/reducer/updateProfileReducer'
 import { UpdateProfile } from '../../service/updateProfile'
 import { useNavigate } from 'react-router-dom'
 import { FetchOrUpdate } from '../../service/authorization'
-import NavBar from '../../components/navbar/navbar'
+
+/** to change user firstname or lastname
+ * @function navigate //native function from react router
+ * @function dispatch // native function from Redux use with Action.type
+ * @function changelastName action.type from reducer in store redux
+ * @function changefirstName  action.type  from reducer in store redux
+ * @function FetchorUpdate //allow access or denied connection to API
+ * @function updateProfile // allow update firstName and lastName
+ * @const {string} token <catch token from the store>
+ * @const {string} id <catch token from the store>
+ * @returns Update
+ */
 
 export default function Update(props) {
   const navigate = useNavigate()

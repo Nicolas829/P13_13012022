@@ -3,6 +3,23 @@ import { Login } from '../store/reducer/profileReducer'
 
 const apiUrl = 'http://localhost:3001/api/v1/'
 
+/**
+ *
+ * @param {*} store
+ * @const {string} email <catch userAuth from the store>
+ * @const {string} token <catch userAuth from the store>
+ * @const {number} status <catch userAuth from the store>
+ * @function dispatch // native function from Redux
+ * use with Fetching / Rejected / Login
+ * @function Fetching // type from reducer in store redux -> change data
+ * @function Rejected //  type from reducer in store redux -> change data
+ * @function Login //  type from reducer in store redux -> change state userinformation
+ * @function Fetch // native function from js
+ * @const {object} data <transform response.json to js>
+ * @const {object} userProfile <transform Profile.json to js>
+ * @returns FetchorUpdate to connect user with the API to catch or to update data
+ */
+
 //fetch api
 export async function FetchOrUpdate(store) {
   const status = store.getState().Fetch.status

@@ -9,6 +9,12 @@ import { ResetState } from '../../store/reducer/fetchReducer'
 import profil from '../../assets/profil.png'
 import iconeLogout from '../../assets/logout.svg'
 
+/**
+ * @param {bolean} userAuth <login ou logout>
+ * @param {string} lastName <in case of login -> user LastName
+ * @returns Navbar // with the label login or logout
+ */
+
 export default function NavBar() {
   const userAuth = store.getState().Profile.userAuth
   const lastName = store.getState().Profile.lastName

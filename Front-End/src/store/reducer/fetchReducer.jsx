@@ -1,7 +1,20 @@
 import produce from 'immer'
 
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+/**reducer to state management
+ * 
+ * @const {type} FETCHING
+ * @const {type} REJECTED
+ * @const {type} AUTHORIZATIONMAIL
+ * @const {type} AUTHORIZATIONPASSWORD
+ * @const {type} RESETSTATE* 
+ * 
+ *    * @redux
+      * @reduxActionType @const {type}
+      * @const {array} initialState
+      * @return {Redux.Action} The generated action
+     
+ * @return reducer for store Redux
+ */
 
 const FETCHING = 'fetching'
 const REJECTED = 'rejected'
@@ -9,26 +22,17 @@ const AUTHORIZATIONMAIL = 'authorizationmail'
 const AUTHORIZATIONPASSWORD = 'autorizationpassword'
 const RESETSTATE = 'resetstate'
 
-const TOGGLESHOWMODAL = 'toggleshowmodal'
-
 const initialState = {
   status: '',
-
   token: '',
   message: '',
   userAuth: false,
   email: '',
   password: '',
-  showModal: 'false',
 }
 
 export const ResetState = () => ({
   type: RESETSTATE,
-})
-
-export const ShowModal = (showModal) => ({
-  type: TOGGLESHOWMODAL,
-  payload: showModal,
 })
 
 export const AuthorizationPassword = (password) => ({
@@ -50,9 +54,6 @@ export const Rejected = (data) => ({ type: REJECTED, payload: data })
 export default function FetchReducer(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
-      case TOGGLESHOWMODAL: {
-        draft.showModal = !action.payload
-      }
       case AUTHORIZATIONMAIL: {
         draft.email = action.payload
         return
