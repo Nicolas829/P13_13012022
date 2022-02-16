@@ -9,6 +9,19 @@ import { useNavigate } from 'react-router-dom'
 import { selectUser, tokenState } from '../../store/selector'
 import NavBar from '../../components/navbar/navbar'
 
+/**
+ * @component NavBar
+ * @function navigate //native function from react router
+ * @function dispatch // native function from Redux
+ * use with Action.type
+ * @function AuthorizationMail // action.type from reducer in store redux -> change state email
+ * @function AuthorizationPassword // action.type from reducer in store redux  ->change state password
+ * @function FetchorUpdate //allow access or denied connection to API
+ * @const {number} id <catch id from the store>
+ * @const {bolean} Auth <catch authorization from the store>
+ * @returns Signin Page
+ */
+
 export default function SignIn() {
   const navigate = useNavigate()
 

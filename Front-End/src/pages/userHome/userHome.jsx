@@ -6,12 +6,20 @@ import './userHome.css'
 import NavBar from '../../components/navbar/navbar'
 import Update from '../update/update'
 
+/**
+ *  user acces to view information or acces denied depend of Auth
+ * @component NavBar
+ * @component Update
+ * @const {string} firstName <catch firstName from the store>
+ * @const {string} lasstName <catch lasstName from the store>
+ * @const {bolean} userAuth<catch userAuth from the store>
+ * @returns UserHome Page
+ */
+
 export default function UserHome() {
   const firstName = selectUser(store.getState()).Profile.firstName
   const lastName = selectUser(store.getState()).Profile.lastName
   const userAuth = selectUser(store.getState()).Profile.userAuth
-
-  const navigate = useNavigate()
 
   if (userAuth) {
     return (

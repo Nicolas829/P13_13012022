@@ -1,5 +1,20 @@
 import produce from 'immer'
 
+/**Profilereducer to state management
+ * 
+ * @const {type} LOGIN
+ * @const {type} RESETSTATEPROFILE
+ * 
+ * 
+ *    * @redux
+      * @reduxActionType @const {type}
+      * @const {array} initialState
+      * @action
+      * @return {Redux.Action} The generated action
+     
+ * @return Redux.reducer 
+ */
+
 const LOGIN = 'login'
 const RESETSTATEPROFILE = 'reseststateprofile'
 
