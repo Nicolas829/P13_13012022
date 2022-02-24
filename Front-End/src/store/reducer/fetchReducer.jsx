@@ -1,5 +1,6 @@
 import produce from 'immer'
 
+
 /**reducer to state management
  * 
  * @const {type} FETCHING
@@ -29,6 +30,7 @@ const initialState = {
   userAuth: false,
   email: '',
   password: '',
+  showModal:false,
 }
 
 export const ResetState = () => ({
@@ -67,6 +69,7 @@ export default function FetchReducer(state = initialState, action) {
           draft.status = action.payload.status
           draft.token = action.payload.body.token
           draft.message = action.payload.message
+          draft.userAuth=true
 
           return
         }
@@ -77,7 +80,7 @@ export default function FetchReducer(state = initialState, action) {
           return
         }
       }
-
+      
       case REJECTED: {
         if (draft.status != 200) {
           draft.token = ''
@@ -88,8 +91,10 @@ export default function FetchReducer(state = initialState, action) {
           draft.data = null
           draft.status = 'rejected'
           draft.message = action.payload.message
-          alert(draft.message)
-
+         
+         alert(draft.message)
+          
+          
           return
         }
         return

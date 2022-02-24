@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains propose additional API endpoints for transactions user for ArgentBank Application.
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/id/transaction:
+    post:
+      tags:
+        - User transaction Module
+      summary: Login
+      description: API for viewing /updating transaction
+      parameters:
+        - in: body
+          name: body
+          description: transactionPayload
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '404':
+          description: error page not Found
+        '500':
+          description: Internal Server Error
+  
+  
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: id
+    in: header
+definitions:
+  Transaction:
+    properties:     
+      date:
+        type: string
+      description: date transaction
+        description:
+      type: string
+        description: description transaction
+      amount:
+        type: number
+        description: amount of the transaction
+      balance:
+        type: number
+        description: balance of count
+      category:
+        type: string
+        description: category  of transaction
+      notes:
+        type: string
+        description: notes about transaction
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object        
+      date:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+      category:
+        type: string
+      notes:
+        type: string
+       

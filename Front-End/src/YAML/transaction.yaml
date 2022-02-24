@@ -9,31 +9,148 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/id/transaction:
-    post:
+  /user/{id}:
+    get:
+      security:
+        - Bearer: []
       tags:
-        - User transaction Module
-      summary: Login
-      description: API for viewing /updating transaction
+        - User Module
+      summary: User Account API
+      description: Api for get transactionId
       parameters:
-        - in: body
-          name: body
-          description: transactionPayload
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
           required: true
+          type: string
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User account retrieved successully
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: "#/definitions/idResponse"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: page not found
+        "500":
+          description: Internal Server Error
+          
+  /user/{id}/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+      - User Module Transaction
+      summary: API for viewing  transaction
+      description: API for viewing  transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionId
+          description: transaction id
+          type: string
+          required: true
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: Login Successfully
+          description: Transaction retrieved successully
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/userIdTransactionResponse'
+        '400':
+          description: Invalid Fields
         '404':
-          description: error page not Found
+          description: page not found
         '500':
           description: Internal Server Error
-  
+    post:
+        security:
+        - Bearer: []
+        tags:
+        - User Module Transaction
+        summary: User Transaction API
+        description: User transaction API
+        parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionId
+          description: transaction id
+          type: string
+          required: true
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: string
+        produces:
+        - application/json
+        responses:
+          '200':
+            description: Transaction load successfully
+            schema:
+              $ref: '#/definitions/transactionResponse'
+          '400':
+            description: Invalid Fields
+          '404':
+            description: page not found
+          '500':
+            description: Internal Server Error
+    put:
+        security:
+        - Bearer: []
+        tags:
+        - User Module Transaction
+        summary:  Updating transaction
+        description: Updating transaction
+        parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: transactionId
+          description: transaction id
+          type: string
+          required: true
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: string
+        produces:
+        - application/json
+        responses:
+          '200':
+            description: Transaction edited Successfully
+            schema:
+              $ref: '#/definitions/updateTransactionResponse'
+          '400':
+            description: Invalid Fields
+          '404':
+            description: page not found
+          '500':
+            description: Internal Server Error
   
 securityDefinitions:
   Bearer:
@@ -41,43 +158,64 @@ securityDefinitions:
     name: id
     in: header
 definitions:
-  Transaction:
-    properties:     
+  idResponse :
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      transactionIds: 
+        items: {}
+      userId:
+        type: string
+  userIdTransactionResponse:
+    properties:
+      userId:
+        type: string
+        description: user ID
+      transactionId:
+        type: string
+        description: transaction ID
+      amountBalance:
+        type: number
+  transactionResponse:
+    properties:
+      userId:
+        type: string
+        description: user ID
+      transactionId:
+        type: string
+        description: transaction ID
       date:
         type: string
-      description: date transaction
-        description:
-      type: string
-        description: description transaction
+        description: date transaction
+      description:
+        type: string
+        description: transaction description
       amount:
         type: number
-        description: amount of the transaction
-      balance:
+        description: transaction amount
+      balance: 
         type: number
-        description: balance of count
+        description: balance after transaction
+      type:
+        type: string
+        description: type of transaction
       category:
         type: string
         description: category  of transaction
       notes:
         type: string
         description: notes about transaction
-  ApiResponse:
-    type: object
+  updateTransactionResponse:
     properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object        
-      date:
-        type: string
-      amount:
-        type: number
-      balance:
-        type: number
       category:
         type: string
+        description: category  of transaction
       notes:
         type: string
+        description: notes about transaction
+     
+ 
+     
        

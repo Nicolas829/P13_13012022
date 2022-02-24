@@ -1,3 +1,5 @@
+import { Rejected } from "../store/reducer/fetchReducer"
+
 /**allow change firstname or lastname
  *
  * @param {string} token
@@ -22,5 +24,7 @@ export async function UpdateProfile(store, tokenAuth) {
     })
 
     const body = await Profile.json()
-  } catch (error) {}
+  } catch (error) {store.dispatch(Rejected({
+      message: "Connection failed, contact Admin"
+     }))}
 }

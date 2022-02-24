@@ -39,6 +39,7 @@ const initialState = {
 export default function ProfileReducer(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
+      
       case LOGIN: {
         if (action.payload.status === 200) {
           draft.id = action.payload.id
@@ -48,7 +49,7 @@ export default function ProfileReducer(state = initialState, action) {
           draft.userAuth = true
 
           return
-        }
+        } 
       }
       case RESETSTATEPROFILE: {
         return { ...initialState }

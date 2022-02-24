@@ -64,5 +64,10 @@ export async function FetchOrUpdate(store) {
         status,
       ),
     )
-  } catch (error) {}
+  } catch (error) {
+    
+    store.dispatch(Rejected({
+      message: "Connection failed, contact Admin"
+     }))
+  }
 }

@@ -66,8 +66,9 @@ export default function SignIn() {
                 e.preventDefault()
                 await FetchOrUpdate(store)
                 const id = selectUser(store.getState()).Profile.id
-                const Auth = selectUser(store.getState()).Profile.userAuth
-
+                const Auth = selectUser(store.getState()).Fetch.userAuth
+               
+              
                 if (Auth) {
                   navigate(`/sign-in/user/${id}#${Auth}`)
                   console.log(window.location.hash)

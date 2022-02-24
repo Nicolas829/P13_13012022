@@ -19,6 +19,25 @@ import { FetchOrUpdate } from '../../service/authorization'
  * @returns Update
  */
 
+async function launchUpdate(navigate, e) {
+    e.preventDefault()
+  const token = store.getState().Profile.token
+  const id = store.getState().Profile.id
+  await UpdateProfile(store, token)
+  await FetchOrUpdate(store) 
+  navigate(`/sign-in/user/${id}`)
+}
+
+async function cancelUpdate(e, lastName, firstName) {
+   e.preventDefault()
+   const token = store.getState().Profile.token
+   const id = store.getState().Profile.id
+   document.getElementById(lastName).value = lastName
+   document.getElementById(firstName).value = firstName
+  
+}
+
+
 export default function Update(props) {
   const navigate = useNavigate()
   const firstName = props.firstName
@@ -40,13 +59,8 @@ export default function Update(props) {
           <button
             className="update-button"
             value="Confirmer changement"
-            onClick={async (e) => {
-              e.preventDefault()
-              const token = store.getState().Profile.token
-              const id = store.getState().Profile.id
-              await UpdateProfile(store, token)
-              await FetchOrUpdate(store)
-              navigate(`/sign-in/user/${id}`)
+            onClick={async (e) => {             
+              await launchUpdate(navigate, e)               
             }}
           >
             Save
@@ -65,14 +79,9 @@ export default function Update(props) {
           />
           <button
             className="update-button"
-            value="Confirmer changement"
+            value="cancel chagne"
             onClick={async (e) => {
-              e.preventDefault()
-              const token = store.getState().Profile.token
-              const id = store.getState().Profile.id
-              document.getElementById(lastName).value = lastName
-              document.getElementById(firstName).value = firstName
-              navigate(`/sign-in/user/${id}`)
+             await cancelUpdate(e, lastName, firstName)
             }}
           >
             Cancel

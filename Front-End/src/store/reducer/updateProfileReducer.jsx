@@ -37,7 +37,7 @@ export default function UpdateProfileReducer(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
       case CHANGEFIRSTNAME: {
-        console.log(action.payload)
+       
         draft.firstName = action.payload
         return
       }
